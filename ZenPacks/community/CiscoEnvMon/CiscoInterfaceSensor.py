@@ -20,7 +20,7 @@ from Globals import InitializeClass
 
 from Products.ZenRelations.RelSchema import *
 from Products.ZenModel.HWComponent import HWComponent
-from Products.ZenModel.ZenossSecurity import ZEN_VIEW, ZEN_CHANGE_SETTINGS
+from Products.ZenModel.ZenossSecurity import ZEN_VIEW_MODIFICATIONS, ZEN_CHANGE_SETTINGS
 
 
 import logging
