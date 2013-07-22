@@ -25,6 +25,11 @@
                      provides=".interfaces.ICiscoPowerSupplyInfo"
                      />
 
+            <adapter factory=".info.CiscoInterfaceSensorInfo"
+                     for=".CiscoInterfaceSensor.CiscoInterfaceSensor"
+                     provides=".interfaces.ICiscoInterfaceSensorInfo"
+                     />
+
             <browser:resourceDirectory
                      name="ciscoenvmon"
                      directory="resources"

@@ -114,3 +114,8 @@ class CiscoPowerSupplyInfo(ComponentInfo):
             return self._object.state
         else: return 'Unknown'
 
+
+class CiscoInterfaceSensorInfo(ComponentInfo):
+    implements(interfaces.ICiscoInterfaceSensorInfo)
+
+    zifName = ProxyProperty("zifName")
