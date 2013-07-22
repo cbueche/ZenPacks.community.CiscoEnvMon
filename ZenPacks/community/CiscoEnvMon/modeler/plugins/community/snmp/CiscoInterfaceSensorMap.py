@@ -19,24 +19,24 @@ class CiscoInterfaceSensorMap(SnmpPlugin):
     """Map Cisco Enviroment sensors to intefaces."""
 
     maptype = "CiscoInterfaceSensorMap"
-    modname = "ZenPacks.community.CiscoInterfaceSensor"
+    modname = "ZenPacks.community.CiscoEnvMon.CiscoInterfaceSensor"
     relname = "CiscoInterfaceSensor"
     compname = "hw"
 
-    snmpGetTableMaps = ( GetTableMap('ifXTable',
-                                     '1.3.6.1.2.1.31.1.1.1',
-                                     { '.1': 'ifName' }
+    snmpGetTableMaps = ( GetTableMap('ifEntry',
+                                     '1.3.6.1.2.1.2.2.1',
+                                     { '.2' : 'ifDescr' }
                                     ),
                          GetTableMap('entSensorValue',
-                                     '1.3.6.1.4.1.9.9.91.1.1',
-                                     { '.7': 'EntPhysicalIndexOrZero' }
+                                     '1.3.6.1.2.1.47.1.1.1.1',
+                                     { '.2' : 'entPhysicalDescr' }
                                     )
                        )
 
-    def process(self, device, resluts, log):
+    def process(self, device, results, log):
         """ Run SNMP queries, process returned values, find Cisco Interface
 sensors"""
-        log.info('Modeling device %s using %s', device.id, self.name)
+        log.info('Modeling device %s using CiscoInterfaceSensorMap', device.id)
         getdata, tabledata = results
         rm = self.relMap()
         # build dictionary of ifName,index.
