@@ -26,10 +26,16 @@ class CiscoPluggableOpticsSensorMap(SnmpPlugin):
                                      '1.3.6.1.2.1.2.2.1',
                                      { '.2' : 'ifDescr' }
                                     ),
-                         GetTableMap('entSensorValue',
+                         GetTableMap('entPhysicalEntry',
                                      '1.3.6.1.2.1.47.1.1.1.1',
                                      { '.2' : 'entPhysicalDescr' }
-                                    )
+                                    ),
+                         GetTableMap('entSensorValueEntry',
+                                     '1.3.6.1.4.1.9.9.91.1.1',
+                                     { '.1' : 'entSensorType',
+                                       '.2' : 'entSensorScale',
+                                       '.3' : 'entSensorPrecision' }
+                                    ),
                        )
 
     def process(self, device, results, log):
@@ -45,17 +51,11 @@ sensors"""
 
         # remove this, it is for debugging:
         om = self.objectMap()
+        om.id = 'GigabitEthernet0_3 Module Temperature Sensor'
         om.ifName = 'Gi0_3'
         om.ifIndex = 10103
         om.zifName = 'GigabitEthernet0_3'
-        om.eptTemperatureIndex = 1015
-        om.eptVoltageIndex = 1016
-        om.eptCurrentIndex = 1017
-        om.eptTxPwrIndex = 1018
-        om.eptRxPwrIndex = 1019
-        om.id = om.ifName
-        om.slot = om.ifName
-        om.snmpindex = 1019
+        om.snmpindex = 1015
         rm.append(om)
 
         return rm
