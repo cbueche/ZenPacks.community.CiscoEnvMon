@@ -11,7 +11,7 @@
 __doc__="""CiscoInterfaceSensor
 
 CiscoInterfaceSensor is used to measure temperature, supply voltage, bias
-current, transmit power and receiver power on Cisco pluggable interface
+current, transmit power and receiver power on Cisco pluggable optical
 modules.
 """
 
@@ -20,14 +20,15 @@ from Globals import InitializeClass
 
 from Products.ZenRelations.RelSchema import *
 from Products.ZenModel.HWComponent import HWComponent
-from Products.ZenModel.ZenossSecurity import ZEN_VIEW_MODIFICATIONS, ZEN_CHANGE_SETTINGS
+from Products.ZenModel.ZenossSecurity import ZEN_VIEW, ZEN_CHANGE_SETTINGS, ZEN_VIEW_HISTORY
 
+from Products.ZenModel.ExpansionCard import ExpansionCard
 
 import logging
 log = logging.getLogger('CiscoInterfaceSensor')
 
 
-class CiscoInterfaceSensor(HWComponent):
+class CiscoInterfaceSensor(ExpansionCard):
     """CiscoInterfaceSensor object"""
 
     portal_type = meta_type = 'CiscoInterfaceSensor'
@@ -55,15 +56,6 @@ class CiscoInterfaceSensor(HWComponent):
         {'id': 'eptRxPwrIndex','type': 'int','mode':''}
     )
 
-    _relations = HWComponent._relations + (
-        ("hw",
-         ToOne(ToManyCont,
-               "Products.ZenModel.DeviceHW",
-               "CiscoInterfaceSensor"
-              )
-        )
-    )
-
     factory_type_information = (
         {
             'id'             : 'CiscoInterfaceSensor',
@@ -77,17 +69,17 @@ class CiscoInterfaceSensor(HWComponent):
                 { 'id'            : 'status'
                 , 'name'          : 'Status'
                 , 'action'        : 'viewCiscoInterfaceSensor'
-                , 'permissions'   : ('View',)
+                , 'permissions'   : (ZEN_VIEW)
                 },
                 { 'id'            : 'perfConf'
                 , 'name'          : 'Template'
                 , 'action'        : 'objTemplates'
-                , 'permissions'   : ("Change Device", )
+                , 'permissions'   : (ZEN_CHANGE_SETTINGS)
                 },
                 { 'id'            : 'viewHistory'
                 , 'name'          : 'Modifications'
                 , 'action'        : 'viewHistory'
-                , 'permissions'   : (ZEN_VIEW_MODIFICATIONS,)
+                , 'permissions'   : (ZEN_VIEW_HISTORY)
                 },
             )
           },

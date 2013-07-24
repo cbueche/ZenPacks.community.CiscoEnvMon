@@ -8,19 +8,18 @@
 #
 ################################################################################
 
-__doc__="""Walk IF-MIB ifXTable ifName to find names of interfaces, then walk
-entSensorValueTable to find similar entries in entSensorMeasuredEntity
-for temperature, bias current, voltage, transmit and receive optical power
+__doc__="""Walk IF-MIB ifXTable ifName to find names of interfaces, then
+walk entSensorValueTable to find similar entries in entSensorMeasuredEntity
+for temperature, bias current, voltage, transmit and receive optical power.
 """
 
 from Products.DataCollector.plugins.CollectorPlugin import SnmpPlugin, GetTableMap
 
 class CiscoInterfaceSensorMap(SnmpPlugin):
-    """Map Cisco Enviroment sensors to intefaces."""
+    "Map Cisco Enviroment sensors on intefaces to the python class for them"
 
-    maptype = "CiscoInterfaceSensorMap"
     modname = "ZenPacks.community.CiscoEnvMon.CiscoInterfaceSensor"
-    relname = "CiscoInterfaceSensor"
+    relname = "cards"
     compname = "hw"
 
     snmpGetTableMaps = ( GetTableMap('ifEntry',
@@ -36,7 +35,7 @@ class CiscoInterfaceSensorMap(SnmpPlugin):
     def process(self, device, results, log):
         """ Run SNMP queries, process returned values, find Cisco Interface
 sensors"""
-        log.info('Modeling device %s using CiscoInterfaceSensorMap', device.id)
+        log.info('Starting process() for modeler CiscoInterfaceSensorMap')
         getdata, tabledata = results
         rm = self.relMap()
         # build dictionary of ifName,index.
@@ -46,7 +45,7 @@ sensors"""
 
         # remove this, it is for debugging:
         om = self.objectMap()
-        om.ifName = 'Gi0/3'
+        om.ifName = 'Gi0_3'
         om.ifIndex = 10103
         om.zifName = 'GigabitEthernet0_3'
         om.eptTemperatureIndex = 1015
@@ -54,6 +53,9 @@ sensors"""
         om.eptCurrentIndex = 1017
         om.eptTxPwrIndex = 1018
         om.eptRxPwrIndex = 1019
+        om.id = om.ifName
+        om.slot = om.ifName
+        om.snmpindex = 1019
         rm.append(om)
 
         return rm
