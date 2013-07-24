@@ -25,9 +25,9 @@
                      provides=".interfaces.ICiscoPowerSupplyInfo"
                      />
 
-            <adapter factory=".info.CiscoInterfaceSensorInfo"
-                     for=".CiscoInterfaceSensor.CiscoInterfaceSensor"
-                     provides=".interfaces.ICiscoInterfaceSensorInfo"
+            <adapter factory=".info.CiscoPluggableOpticsSensorInfo"
+                     for=".CiscoPluggableOpticsSensor.CiscoPluggableOpticsSensor"
+                     provides=".interfaces.ICiscoPluggableOpticsSensorInfo"
                      />
 
             <browser:resourceDirectory

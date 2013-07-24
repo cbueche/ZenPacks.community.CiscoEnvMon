@@ -115,7 +115,8 @@ class CiscoPowerSupplyInfo(ComponentInfo):
         else: return 'Unknown'
 
 
-class CiscoInterfaceSensorInfo(ComponentInfo):
-    implements(interfaces.ICiscoInterfaceSensorInfo)
+class CiscoPluggableOpticsSensorInfo(ComponentInfo):
+    implements(interfaces.ICiscoPluggableOpticsSensorInfo)
 
+    # name used by zenoss of the interface this sensor is for
     zifName = ProxyProperty("zifName")

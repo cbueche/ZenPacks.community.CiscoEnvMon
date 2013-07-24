@@ -8,9 +8,9 @@
 #
 ################################################################################
 
-__doc__="""CiscoInterfaceSensor
+__doc__="""CiscoPluggableOpticsSensor
 
-CiscoInterfaceSensor is used to measure temperature, supply voltage, bias
+CiscoPluggableOpticsSensor is used to measure temperature, supply voltage, bias
 current, transmit power and receiver power on Cisco pluggable optical
 modules.
 """
@@ -25,50 +25,45 @@ from Products.ZenModel.ZenossSecurity import ZEN_VIEW, ZEN_CHANGE_SETTINGS, ZEN_
 from Products.ZenModel.ExpansionCard import ExpansionCard
 
 import logging
-log = logging.getLogger('CiscoInterfaceSensor')
+log = logging.getLogger('CiscoPluggableOpticsSensor')
 
 
-class CiscoInterfaceSensor(ExpansionCard):
-    """CiscoInterfaceSensor object"""
+class CiscoPluggableOpticsSensor(ExpansionCard):
+    """CiscoPluggableOpticsSensor object"""
 
-    portal_type = meta_type = 'CiscoInterfaceSensor'
+    portal_type = meta_type = 'CiscoPluggableOpticsSensor'
 
     # set default _properties
     ifName = 'Not set by modeler'   # from IF-MIB ifXTable
     ifIndex = -1                    # index for above
     zifName = 'Not set by modeler'  # interface name as set in zenoss
-    # the following are indexes from the entPhysicalTable for entPhysicalName
-    # for temperature, etc. for this interface
-    eptTemperatureIndex = -1
-    eptVoltageIndex = -1
-    eptCurrentIndex = -1
-    eptTxPwrIndex = -1                 # transmit power
-    eptRxPwrIndex = -1                 # receive power
+    # the following are from the entSensorValues table
+    entSensorType = 'unknown' # like amperes, celsius, dBm, voltsDC
+    entSensorScale = 1        # a power of 10
+    entSensorPrecision = 1
 
     _properties = (
         {'id':'ifName', 'type':'string', 'mode':''},
         {'id':'ifIndex', 'type':'int', 'mode':''},
         {'id':'zifName', 'type':'string', 'mode':''},
-        {'id': 'eptTemperatureIndex','type': 'int','mode':''},
-        {'id': 'eptVoltageIndex','type': 'int','mode':''},
-        {'id': 'eptCurrentIndex','type': 'int','mode':''},
-        {'id': 'eptTxPwrIndex','type': 'int','mode':''},
-        {'id': 'eptRxPwrIndex','type': 'int','mode':''}
+        {'id': 'entSensorType','type': 'string','mode':''},
+        {'id': 'entSensorScale','type': 'float','mode':''},
+        {'id': 'entSensorPrecision','type': 'int','mode':''},
     )
 
     factory_type_information = (
         {
-            'id'             : 'CiscoInterfaceSensor',
-            'meta_type'      : 'CiscoInterfaceSensor',
-            'description'    : "Environment monitoring of interface hardware",
+            'id'             : 'CiscoPluggableOpticsSensor',
+            'meta_type'      : 'CiscoPluggableOpticsSensor',
+            'description'    : "Environment monitoring of optical modules",
             'product'        : 'ZenModel',
-            'factory'        : 'manage_addCiscoInterfaceSensor',
-            'immediate_view' : 'viewCiscoInterfaceSensor',
+            'factory'        : 'manage_addCiscoPluggableOpticsSensor',
+            'immediate_view' : 'viewCiscoPluggableOpticsSensor',
             'actions'        :
             (
                 { 'id'            : 'status'
                 , 'name'          : 'Status'
-                , 'action'        : 'viewCiscoInterfaceSensor'
+                , 'action'        : 'viewCiscoPluggableOpticsSensor'
                 , 'permissions'   : (ZEN_VIEW)
                 },
                 { 'id'            : 'perfConf'
@@ -98,5 +93,5 @@ class CiscoInterfaceSensor(ExpansionCard):
             REQUEST['RESPONSE'].redirect(self.device().hw.absolute_url())
 
 
-InitializeClass(CiscoInterfaceSensor)
+InitializeClass(CiscoPluggableOpticsSensor)
 

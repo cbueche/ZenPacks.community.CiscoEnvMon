@@ -15,10 +15,10 @@ for temperature, bias current, voltage, transmit and receive optical power.
 
 from Products.DataCollector.plugins.CollectorPlugin import SnmpPlugin, GetTableMap
 
-class CiscoInterfaceSensorMap(SnmpPlugin):
+class CiscoPluggableOpticsSensorMap(SnmpPlugin):
     "Map Cisco Enviroment sensors on intefaces to the python class for them"
 
-    modname = "ZenPacks.community.CiscoEnvMon.CiscoInterfaceSensor"
+    modname = "ZenPacks.community.CiscoEnvMon.CiscoPluggableOpticsSensor"
     relname = "cards"
     compname = "hw"
 
@@ -33,9 +33,9 @@ class CiscoInterfaceSensorMap(SnmpPlugin):
                        )
 
     def process(self, device, results, log):
-        """ Run SNMP queries, process returned values, find Cisco Interface
+        """ Run SNMP queries, process returned values, find Cisco PluggableOptics
 sensors"""
-        log.info('Starting process() for modeler CiscoInterfaceSensorMap')
+        log.info('Starting process() for modeler CiscoPluggableOpticsSensorMap')
         getdata, tabledata = results
         rm = self.relMap()
         # build dictionary of ifName,index.
