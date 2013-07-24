@@ -13,6 +13,7 @@ walk entSensorValueTable to find similar entries in entSensorMeasuredEntity
 for temperature, bias current, voltage, transmit and receive optical power.
 """
 
+import re
 from Products.DataCollector.plugins.CollectorPlugin import SnmpPlugin, GetTableMap
 
 class CiscoPluggableOpticsSensorMap(SnmpPlugin):
@@ -44,18 +45,31 @@ sensors"""
         log.info('Starting process() for modeler CiscoPluggableOpticsSensorMap')
         getdata, tabledata = results
         rm = self.relMap()
-        # build dictionary of ifName,index.
+        # build dictionary of ifName,index and entPhysicalDescr,index
         ifNames = {}
+        physDecrs = {}
+        for oid, ifName in tabledata.get("ifEntry").iteritems():
+            ifNames[ifName['ifDescr']] = int(oid.strip('.'))
+        for oid, physDecr in tabledata.get("entPhysicalEntry").iteritems():
+            physDecrs[physDecr['entPhysicalDescr']] = int(oid.strip('.'))
+        
+        log.debug('ifNames: %s' % ifNames)
+        log.debug('physDecrs: %s' % physDecrs)
+        intfSensors = []
+        ifIndexes = []
         # iterate over ifNames to find matching sensors
-            # fancy code goes here....
+        for ifName, ifIndex in ifNames.iteritems():
+            for physDescr, physIndex in physDecrs.iteritems():
+                isSensor = '%s%s' % \
+                    (ifName,r'\s+.*[temperature|current|voltage|power]')
+                if re.match(isSensor,physDescr,re.IGNORECASE):
+                    intfSensors.append(physDescr)
+                    ifIndexes.append(ifIndex)
 
-        # remove this, it is for debugging:
-        om = self.objectMap()
-        om.id = 'GigabitEthernet0_3 Module Temperature Sensor'
-        om.ifName = 'Gi0_3'
-        om.ifIndex = 10103
-        om.zifName = 'GigabitEthernet0_3'
-        om.snmpindex = 1015
-        rm.append(om)
+        for sensor in intfSensors:
+            om = self.objectMap()
+            om.id = self.prepId(sensor)
+            om.snmpindex = physDecrs[sensor]
+            rm.append(om)
 
         return rm
