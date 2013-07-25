@@ -108,6 +108,7 @@ Run SNMP queries, process returned values, find Cisco PluggableOptics sensors
                     om.id = self.prepId(physDescr)
                     om.snmpindex = int(physIndex.strip('.'))
                     om.ifDescr= ifDescr
+                    om.physDescr = physDescr
                     om.ifIndex = int(ifIndex.strip('.'))
                     om.entSensorType = _SensorDataType[
                          int(entSensorValueEntry[physIndex]['entSensorType'])]
