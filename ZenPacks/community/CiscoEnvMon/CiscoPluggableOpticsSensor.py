@@ -19,7 +19,7 @@ from Globals import DTMLFile
 from Globals import InitializeClass
 
 from Products.ZenRelations.RelSchema import *
-from Products.ZenModel.HWComponent import HWComponent
+from Products.ZenModel.ManagedEntity import ManagedEntity
 from Products.ZenModel.ZenossSecurity import ZEN_VIEW, ZEN_CHANGE_SETTINGS, ZEN_VIEW_HISTORY
 
 from Products.ZenModel.ExpansionCard import ExpansionCard
@@ -28,24 +28,23 @@ import logging
 log = logging.getLogger('CiscoPluggableOpticsSensor')
 
 
-class CiscoPluggableOpticsSensor(ExpansionCard):
+class CiscoPluggableOpticsSensor(ExpansionCard, ManagedEntity):
     """CiscoPluggableOpticsSensor object"""
 
     portal_type = meta_type = 'CiscoPluggableOpticsSensor'
 
     # set default _properties
-    ifName = 'Not set by modeler'   # from IF-MIB ifXTable
+    ifDescr = 'Not set by modeler'   # from IF-MIB ifXTable
     ifIndex = -1                    # index for above
-    zifName = 'Not set by modeler'  # interface name as set in zenoss
     # the following are from the entSensorValues table
     entSensorType = 'unknown' # like amperes, celsius, dBm, voltsDC
     entSensorScale = 1        # a power of 10
     entSensorPrecision = 1
 
     _properties = (
-        {'id':'ifName', 'type':'string', 'mode':''},
-        {'id':'ifIndex', 'type':'int', 'mode':''},
-        {'id':'zifName', 'type':'string', 'mode':''},
+        {'id': 'ifDescr', 'type':'string', 'mode':''},
+        {'id': 'physDescr', 'type':'string', 'mode':''},
+        {'id': 'ifIndex', 'type':'int', 'mode':''},
         {'id': 'entSensorType','type': 'string','mode':''},
         {'id': 'entSensorScale','type': 'float','mode':''},
         {'id': 'entSensorPrecision','type': 'int','mode':''},
@@ -81,7 +80,7 @@ class CiscoPluggableOpticsSensor(ExpansionCard):
         )
 
     def viewName(self):
-        return self.id
+        return self.physDescr
     name = viewName
 
     def manage_deleteComponent(self, REQUEST=None):
