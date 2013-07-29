@@ -34,7 +34,9 @@ class CiscoPluggableOpticsSensor(ExpansionCard, ManagedEntity):
     portal_type = meta_type = 'CiscoPluggableOpticsSensor'
 
     # set default _properties
-    ifDescr = 'Not set by modeler'   # from IF-MIB ifXTable
+    ifDescr = 'Not set by modeler'   # from IF-MIB ifEntry table
+    ifAlias = ''                     # from IF-MIB ifXEntry table
+    physDescr = 'Not set by modeler' # entPhysicalDescr from entPhysicalTable
     ifIndex = -1                    # index for above
     # the following are from the entSensorValues table
     entSensorType = 'unknown' # like amperes, celsius, dBm, voltsDC
@@ -43,6 +45,7 @@ class CiscoPluggableOpticsSensor(ExpansionCard, ManagedEntity):
 
     _properties = (
         {'id': 'ifDescr', 'type':'string', 'mode':''},
+        {'id': 'ifAlias', 'type':'string', 'mode':''},
         {'id': 'physDescr', 'type':'string', 'mode':''},
         {'id': 'ifIndex', 'type':'int', 'mode':''},
         {'id': 'entSensorType','type': 'string','mode':''},
@@ -82,6 +85,9 @@ class CiscoPluggableOpticsSensor(ExpansionCard, ManagedEntity):
     def viewName(self):
         return self.physDescr
     name = viewName
+
+    def getRRDTemplateName(self):
+        return 'CiscoPluggableOpticsSensor' + self.entSensorType.capitalize()
 
     def manage_deleteComponent(self, REQUEST=None):
         """

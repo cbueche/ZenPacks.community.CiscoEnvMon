@@ -64,9 +64,5 @@ class ICiscoPluggableOpticsSensorInfo(IComponentInfo):
     """
     Info adapter for CiscoPluggableOpticsSensor components.
     """
-    interfaceName = schema.Text(
-        title=u"Interface Name",
-        readonly=True,
-         group='Overview'
-    )
-
+    description  = schema.Text(
+        title=u"Description", readonly=True, group='Overview')

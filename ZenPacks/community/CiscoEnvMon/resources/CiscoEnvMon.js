@@ -237,4 +237,69 @@ ZC.CiscoPowerSupplyPanel = Ext.extend(ZC.ComponentGridPanel, {
 Ext.reg('CiscoPowerSupplyPanel', ZC.CiscoPowerSupplyPanel);
 ZC.registerName('CiscoPowerSupply', _t('Power Supply'), _t('Power Supplies'));
 
+
+ZC.CiscoPluggableOpticsSensorPanel = Ext.extend(ZC.ComponentGridPanel, {
+ constructor: function(config) {
+ config = Ext.applyIf(config||{}, {
+ componentType: 'CiscoPluggableOpticsSensor',
+ autoExpandColumn: 'name',
+            sortInfo: {
+                field: 'name',
+                direction: 'ASC'
+            },
+            fields: [
+                {name: 'uid'},
+                {name: 'name'},
+                {name: 'status'},
+                {name: 'severity'},
+                {name: 'usesMonitorAttribute'},
+                {name: 'monitor'},
+                {name: 'monitored'},
+                {name: 'locking'},
+                {name: 'description'}
+            ],
+            columns: [{
+                id: 'severity',
+                dataIndex: 'severity',
+                header: _t('Events'),
+                renderer: Zenoss.render.severity,
+                sortable: true,
+                width: 50
+            },{
+                id: 'name',
+                dataIndex: 'name',
+                header: _t('Name'),
+                sortable: true
+            },{
+                id: 'description',
+                dataIndex: 'description',
+                header: _t('Interface description'),
+                sortable: true,
+                width: 120
+            },{
+                id: 'monitored',
+                dataIndex: 'monitored',
+                header: _t('Monitored'),
+                renderer: Zenoss.render.checkbox,
+                sortable: true,
+                width: 70
+            },{
+                id: 'locking',
+                dataIndex: 'locking',
+                header: _t('Locking'),
+                renderer: Zenoss.render.locking_icons,
+                width: 65
+            }]
+        });
+        ZC.CiscoPluggableOpticsSensorPanel.superclass.constructor.call(this, config);
+    }
+});
+
+
+Ext.reg('CiscoPluggableOpticsSensorPanel', ZC.CiscoPluggableOpticsSensorPanel);
+ZC.registerName(
+    'CiscoPluggableOpticsSensor',
+    _t('Pluggable Optics Sensor'),
+    _t('Pluggable Optics Sensors'));
+
 })();

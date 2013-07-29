@@ -17,6 +17,7 @@ Exclude sensors that have entSensorStatus not equal to 1 (ok)
 import re
 from Products.DataCollector.plugins.CollectorPlugin \
     import SnmpPlugin, GetTableMap
+from pprint import pprint
 
 class CiscoPluggableOpticsSensorMap(SnmpPlugin):
     "Map Cisco Enviroment sensors on intefaces to the python class for them"
@@ -28,6 +29,10 @@ class CiscoPluggableOpticsSensorMap(SnmpPlugin):
     snmpGetTableMaps = ( GetTableMap('ifEntry',
                                      '1.3.6.1.2.1.2.2.1',
                                      { '.2' : 'ifDescr' }
+                                    ),
+                         GetTableMap('ifXEntry',
+                                     '1.3.6.1.2.1.31.1.1.1',
+                                     { '.18' : 'ifAlias' }
                                     ),
                          GetTableMap('entPhysicalEntry',
                                      '1.3.6.1.2.1.47.1.1.1.1',
@@ -106,16 +111,28 @@ Run SNMP queries, process returned values, find Cisco PluggableOptics sensors
                         continue
                     om = self.objectMap()
                     om.id = self.prepId(physDescr)
+                    om.title = physDescr
                     om.snmpindex = int(physIndex.strip('.'))
-                    om.ifDescr= ifDescr
+                    om.ifDescr = ifDescr
+                    try:
+                        om.ifAlias = tabledata.get(
+                                         "ifXEntry")[ifIndex]['ifAlias']
+                    except AttributeError:
+                        om.ifAlias = ''
                     om.physDescr = physDescr
                     om.ifIndex = int(ifIndex.strip('.'))
-                    om.entSensorType = _SensorDataType[
-                         int(entSensorValueEntry[physIndex]['entSensorType'])]
-                    om.entSensorScale = _SensorDataScale[
-                         int(entSensorValueEntry[physIndex]['entSensorScale'])]
-                    om.entSensorPrecision = \
-                         int(entSensorValueEntry[physIndex]['entSensorPrecision'])
+                    # don't create object if there's missing data
+                    try:
+                        om.entSensorType = _SensorDataType[int(
+                           entSensorValueEntry[physIndex]['entSensorType'])]
+                        om.entSensorScale = _SensorDataScale[int(
+                           entSensorValueEntry[physIndex]['entSensorScale'])]
+                        om.entSensorPrecision = int(
+                           entSensorValueEntry[physIndex]['entSensorPrecision'])
+                    except AttributeError:
+                        log.info('"%s" is missing entSensor values, skipping' %\
+                            physDescr)
+                        continue
                     om.monitor = True
                     rm.append(om)
 

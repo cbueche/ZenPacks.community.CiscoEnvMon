@@ -118,5 +118,4 @@ class CiscoPowerSupplyInfo(ComponentInfo):
 class CiscoPluggableOpticsSensorInfo(ComponentInfo):
     implements(interfaces.ICiscoPluggableOpticsSensorInfo)
 
-    # name used by zenoss of the interface this sensor is for
-    zifName = ProxyProperty("zifName")
+    description = ProxyProperty("ifAlias")
