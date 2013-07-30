@@ -55,6 +55,7 @@ class CiscoFanMap(SnmpPlugin):
                 om = self.objectMap(fan)
                 if int(om.state) > 3: continue
                 om.snmpindex = oid.strip('.')
+                om.title = om.id
                 om.id = self.prepId(om.id)
                 om.state = self.states.get(int(om.state), 'unknown')
             except AttributeError:
