@@ -105,10 +105,16 @@ Run SNMP queries, process returned values, find Cisco PluggableOptics sensors
         for ifDescr, ifIndex in ifDescrs.iteritems():
             for physDescr, physIndex in physDescrs.iteritems():
                 if re.search(ifDescr + _sensor_regex, physDescr, re.IGNORECASE):
-                    log.info('Found sensor %s' % physDescr)
-                    if entSensorValueEntry[physIndex]['entSensorStatus'] != 1:
-                        log.info('entSensorStatus != ok on %s' % physDescr)
-                        continue
+                    try:
+                      log.info('Found sensor %s' % physDescr)
+                      if entSensorValueEntry[physIndex]['entSensorStatus'] != 1:
+                          log.info(
+                              '%s entSensorStatus != ok, skipping' % physDescr)
+                          continue
+                    except KeyError:
+                      log.info(
+                          "%s did not return it's status, skipping" % physDescr)
+                      continue
                     om = self.objectMap()
                     om.id = self.prepId(physDescr)
                     om.title = physDescr
@@ -117,7 +123,7 @@ Run SNMP queries, process returned values, find Cisco PluggableOptics sensors
                     try:
                         om.ifAlias = tabledata.get(
                                          "ifXEntry")[ifIndex]['ifAlias']
-                    except AttributeError:
+                    except KeyError:
                         om.ifAlias = ''
                     om.physDescr = physDescr
                     om.ifIndex = int(ifIndex.strip('.'))
@@ -129,7 +135,7 @@ Run SNMP queries, process returned values, find Cisco PluggableOptics sensors
                            entSensorValueEntry[physIndex]['entSensorScale'])]
                         om.entSensorPrecision = int(
                            entSensorValueEntry[physIndex]['entSensorPrecision'])
-                    except AttributeError:
+                    except KeyError:
                         log.info('"%s" is missing entSensor values, skipping' %\
                             physDescr)
                         continue
