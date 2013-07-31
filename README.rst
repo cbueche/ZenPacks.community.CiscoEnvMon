@@ -6,7 +6,8 @@ About
 =====
 
 This Monitoring ZenPack provides Cisco Environmental monitoring including fans,
-temperature sensors, power supplies and expansion modules.
+temperature sensors, power supplies, pluggable optics modules  and expansion
+modules.
 
 Requirements
 ============
@@ -61,14 +62,20 @@ Modeler Plugins
 - **community.snmp.CiscoFanMap** - Fan modeler plugin.
 - **community.snmp.CiscoPowerSupplyMap** - Power Supply modeler plugin.
 - **community.snmp.CiscoTemperatureSensorMap** - Temperature Sensor modeler
-  plugin.
+- **community.snmp.CiscoPluggableOpticsSensorMap** - Pluggable Optics Sensor
+  modeler plugin.
 
 Monitoring Templates
 --------------------
 
-- Devices/Network/Router/Cisco/CiscoFan
-- Devices/Network/Router/Cisco/CiscoPowerSupply
-- Devices/Network/Router/Cisco/CiscoTemperatureSensor
+- Devices/CiscoFan
+- Devices/CiscoPowerSupply
+- Devices/CiscoTemperatureSensor
+- Devices/CiscoTemperatureSensor
+- Devices/CiscoPluggableOpticsSensorAmperes
+- Devices/CiscoPluggableOpticsSensorCelcius
+- Devices/CiscoPluggableOpticsSensorDbm
+- Devices/CiscoPluggableOpticsSensorVoltsdc
 
 Reports
 -------
