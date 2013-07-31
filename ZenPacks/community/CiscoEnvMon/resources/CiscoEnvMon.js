@@ -275,7 +275,7 @@ ZC.CiscoPluggableOpticsSensorPanel = Ext.extend(ZC.ComponentGridPanel, {
                 dataIndex: 'description',
                 header: _t('Interface description'),
                 sortable: true,
-                width: 120
+                width: 200
             },{
                 id: 'monitored',
                 dataIndex: 'monitored',
