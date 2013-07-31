@@ -26,7 +26,7 @@ Installation
 Normal Installation (packaged egg)
 ----------------------------------
 
-Download the `CiscoEnvMon ZenPack <http://http://wiki.zenoss.org/ZenPack:Cisco_Environmental_Monitor>`_.
+Download the `CiscoEnvMon ZenPack <http://wiki.zenoss.org/ZenPack:Cisco_Environmental_Monitor>`_.
 Copy the .egg file to your Zenoss server and run the following commands as the zenoss
 user.
 
