@@ -1,5 +1,15 @@
 #!/usr/bin/env python
 
+################################################################################
+#
+# This program is part of the CiscoEnvMon Zenpack for Zenoss.
+# Copyright (C) 2013 Russell Dwarshuis
+#
+# This program can be used under the GNU General Public License version 2
+# You can find full information here: http://www.zenoss.com/oss
+#
+################################################################################
+
 usage = '''
 Create rrd template local copy and/or update the threshold for receive
 optical power on all Cisco Pluggable Optic Modules so that they will
