@@ -54,6 +54,8 @@ class CiscoTemperatureSensorMap(SnmpPlugin):
             try:
                 om = self.objectMap(tsensor)
                 if int(om.state) > 3: continue
+                # Cisco 892 return empty id's
+                if om.id == '': continue
                 om.snmpindex = oid.strip('.')
                 om.id = self.prepId(om.id)
                 om.state = self.states.get(int(om.state), 'unknown')

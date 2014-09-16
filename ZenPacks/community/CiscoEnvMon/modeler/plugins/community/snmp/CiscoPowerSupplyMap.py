@@ -62,6 +62,8 @@ class CiscoPowerSupplyMap(SnmpPlugin):
             try:
                 om = self.objectMap(ps)
                 if int(om.state) > 3: continue
+                # Cisco 1921 return empty id's
+                if om.id == '': continue
                 om.snmpindex = oid.strip('.')
                 om.id = self.prepId(om.id)
                 om.type = self.pstypes.get(om.type, 'unknown')
