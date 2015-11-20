@@ -6,7 +6,8 @@ About
 =====
 
 This Monitoring ZenPack provides Cisco Environmental monitoring including fans,
-temperature sensors, power supplies and expansion modules.
+temperature sensors, power supplies, pluggable optics modules and expansion
+modules.
 
 Requirements
 ============
@@ -25,8 +26,8 @@ Installation
 Normal Installation (packaged egg)
 ----------------------------------
 
-Download the `CiscoEnvMon ZenPack <http://community.zenoss.org/docs/DOC-0000>`_.
-Copy this file to your Zenoss server and run the following commands as the zenoss
+Download the `CiscoEnvMon ZenPack <http://wiki.zenoss.org/ZenPack:Cisco_Environmental_Monitor>`_.
+Copy the .egg file to your Zenoss server and run the following commands as the zenoss
 user.
 
     ::
@@ -56,19 +57,25 @@ Installing the ZenPack will add the following items to your Zenoss system.
 Modeler Plugins
 ---------------
 
-- **community.snmp.CiscoExpansionCardMap** - this modeler plugin, tried to
-  identify Model, Vendor and Serial Number of installed expansion modules.
+- **community.snmp.CiscoExpansionCardMap** - this modeler plugin tries to
+  identify the Model, Vendor and Serial Number of installed expansion modules.
 - **community.snmp.CiscoFanMap** - Fan modeler plugin.
 - **community.snmp.CiscoPowerSupplyMap** - Power Supply modeler plugin.
 - **community.snmp.CiscoTemperatureSensorMap** - Temperature Sensor modeler
-  plugin.
+- **community.snmp.CiscoPluggableOpticsSensorMap** - Pluggable Optics Sensor
+  modeler plugin.
 
 Monitoring Templates
 --------------------
 
-- Devices/Network/Router/Cisco/CiscoFan
-- Devices/Network/Router/Cisco/CiscoPowerSupply
-- Devices/Network/Router/Cisco/CiscoTemperatureSensor
+- Devices/CiscoFan
+- Devices/CiscoPowerSupply
+- Devices/CiscoTemperatureSensor
+- Devices/CiscoTemperatureSensor
+- Devices/CiscoPluggableOpticsSensorAmperes
+- Devices/CiscoPluggableOpticsSensorCelcius
+- Devices/CiscoPluggableOpticsSensorDbm
+- Devices/CiscoPluggableOpticsSensorVoltsdc
 
 Reports
 -------

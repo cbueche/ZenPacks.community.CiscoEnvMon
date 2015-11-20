@@ -114,3 +114,8 @@ class CiscoPowerSupplyInfo(ComponentInfo):
             return self._object.state
         else: return 'Unknown'
 
+
+class CiscoPluggableOpticsSensorInfo(ComponentInfo):
+    implements(interfaces.ICiscoPluggableOpticsSensorInfo)
+
+    description = ProxyProperty("ifAlias")

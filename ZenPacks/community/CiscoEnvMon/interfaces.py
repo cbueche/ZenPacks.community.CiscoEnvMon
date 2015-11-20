@@ -59,3 +59,10 @@ class ICiscoPowerSupplyInfo(IComponentInfo):
     type = schema.Text(title=u"Type", readonly=True, group='Details')
     wattsString = schema.Text(title=u"Watts", readonly=True, group='Details')
     millivoltsString = schema.Text(title=u"Voltage", readonly=True, group='Details')
+
+class ICiscoPluggableOpticsSensorInfo(IComponentInfo):
+    """
+    Info adapter for CiscoPluggableOpticsSensor components.
+    """
+    description  = schema.Text(
+        title=u"Description", readonly=True, group='Overview')

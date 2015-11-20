@@ -25,6 +25,11 @@
                      provides=".interfaces.ICiscoPowerSupplyInfo"
                      />
 
+            <adapter factory=".info.CiscoPluggableOpticsSensorInfo"
+                     for=".CiscoPluggableOpticsSensor.CiscoPluggableOpticsSensor"
+                     provides=".interfaces.ICiscoPluggableOpticsSensorInfo"
+                     />
+
             <browser:resourceDirectory
                      name="ciscoenvmon"
                      directory="resources"
