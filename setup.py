@@ -3,8 +3,8 @@
 # or saved.  Do not modify them directly here.
 # NB: PACKAGES is deprecated
 NAME = "ZenPacks.community.CiscoEnvMon"
-VERSION = "1.2.0"
-AUTHOR = "Egor Puzanov"
+VERSION = "1.3.0"
+AUTHOR = "Egor Puzanov, Russel Dwarshuis, Lionel Seydoux, Charles Bueche"
 LICENSE = "GPLv2"
 NAMESPACE_PACKAGES = ['ZenPacks', 'ZenPacks.community']
 PACKAGES = ['ZenPacks', 'ZenPacks.community', 'ZenPacks.community.CiscoEnvMon']
@@ -33,7 +33,7 @@ setup(
     # previousZenPackName is a facility for telling Zenoss that the name
     # of this ZenPack has changed.  If no ZenPack with the current name is
     # installed then a zenpack of this name if installed will be upgraded.
-    prevZenPackName = PREV_ZENPACK_NAME, 
+    prevZenPackName = PREV_ZENPACK_NAME,
 
     # Indicate to setuptools which namespace packages the zenpack
     # participates in

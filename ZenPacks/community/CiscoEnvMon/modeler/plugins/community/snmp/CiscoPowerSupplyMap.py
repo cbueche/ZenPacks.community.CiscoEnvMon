@@ -62,11 +62,10 @@ class CiscoPowerSupplyMap(SnmpPlugin):
             try:
                 om = self.objectMap(ps)
                 if int(om.state) > 3: continue
-                # Cisco 1921 return empty id's
-                if om.id == '': continue
                 om.snmpindex = oid.strip('.')
-                om.title = om.id
-                om.id = self.prepId(om.id)
+                # Cisco 1921 return empty id's
+                om.title = om.id or om.snmpindex
+                om.id = self.prepId(om.id) or om.snmpindex
                 om.type = self.pstypes.get(om.type, 'unknown')
                 om.state = self.states.get(int(om.state), 'unknown')
             except AttributeError:

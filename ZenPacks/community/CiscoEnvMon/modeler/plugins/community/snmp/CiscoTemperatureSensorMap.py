@@ -8,7 +8,7 @@
 #
 ################################################################################
 
-__doc__="""CiscoTemperatureSensorMap
+__doc__= """CiscoTemperatureSensorMap
 
 CiscoTemperatureSensorMap maps the ciscoEnvMonTemperatureStatusTable table to
 temperaturesensors objects
@@ -54,11 +54,10 @@ class CiscoTemperatureSensorMap(SnmpPlugin):
             try:
                 om = self.objectMap(tsensor)
                 if int(om.state) > 3: continue
-                # Cisco 892 return empty id's
-                if om.id == '': continue
                 om.snmpindex = oid.strip('.')
-                om.title = om.id
-                om.id = self.prepId(om.id)
+                # Cisco 892 return empty id's
+                om.title = om.id or om.snmpindex
+                om.id = self.prepId(om.id) or om.snmpindex
                 om.state = self.states.get(int(om.state), 'unknown')
             except AttributeError:
                 continue
