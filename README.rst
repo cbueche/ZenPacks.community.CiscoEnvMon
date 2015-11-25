@@ -64,8 +64,8 @@ Modeler Plugins
 - **community.snmp.CiscoTemperatureSensorMap** - Temperature Sensor modeler
 - **community.snmp.CiscoPluggableOpticsSensorMap** - Pluggable Optics Sensor
   modeler plugin.
-- **CiscoEntityFRUControlFanMap** - Fan modeler plugin for Cisco Nexus.
-- **CiscoEntityFRUControlPowerSupplyMap** - Power Supply modeler plugin for Cisco Nexus.
+- **community.snmp.CiscoEntityFRUControlFanMap** - Fan modeler plugin for Cisco Nexus.
+- **community.snmp.CiscoEntityFRUControlPowerSupplyMap** - Power Supply modeler plugin for Cisco Nexus.
 
 Which modeler plugins to use :
 
@@ -95,6 +95,6 @@ Contributors
 ------------
 
 - Egor Puzanov is the original author
-- Russell Dwarshuis added the CiscoPluggableOpticsSensor* part
-- Lionel Seydoux developed the Cisco Nexus part
+- Russell Dwarshuis added the CiscoPluggableOpticsSensor* parts
+- Lionel Seydoux developed the Cisco Nexus parts
 - Charles Bueche streamlined the Nexus part and integrated it into this ZenPacks
