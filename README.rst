@@ -32,7 +32,7 @@ user.
 
     ::
 
-        zenpack --install ZenPacks.community.CiscoEnvMon-1.2.0.egg
+        zenpack --install ZenPacks.community.CiscoEnvMon-x.y.z.egg
         zenoss restart
 
 Developer Installation (link mode)
@@ -64,6 +64,13 @@ Modeler Plugins
 - **community.snmp.CiscoTemperatureSensorMap** - Temperature Sensor modeler
 - **community.snmp.CiscoPluggableOpticsSensorMap** - Pluggable Optics Sensor
   modeler plugin.
+- **CiscoEntityFRUControlFanMap** - Fan modeler plugin for Cisco Nexus.
+- **CiscoEntityFRUControlPowerSupplyMap** - Power Supply modeler plugin for Cisco Nexus.
+
+Which modeler plugins to use :
+
+- for Cisco IOS, use CiscoFanMap and  CiscoPowerSupplyMap
+- for Cisco Nexus, use CiscoEntityFRUControlFanMap and CiscoEntityFRUControlPowerSupplyMap
 
 Monitoring Templates
 --------------------
@@ -82,3 +89,11 @@ Reports
 
 - Reports/Device Reports/Cisco Reports/Cisco Devices
 - Reports/Device Reports/Cisco Reports/Modules
+
+
+#### contributors
+
+- Egor Puzanov is the original author
+- Russell Dwarshuis added the CiscoPluggableOpticsSensor* part
+- Lionel Seydoux developed the Cisco Nexus part
+- Charles Bueche streamlined the Nexus part and integrated it into this ZenPacks
