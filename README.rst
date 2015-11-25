@@ -91,7 +91,8 @@ Reports
 - Reports/Device Reports/Cisco Reports/Modules
 
 
-#### contributors
+Contributors
+------------
 
 - Egor Puzanov is the original author
 - Russell Dwarshuis added the CiscoPluggableOpticsSensor* part
